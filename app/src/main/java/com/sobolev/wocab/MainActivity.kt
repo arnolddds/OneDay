@@ -19,19 +19,8 @@ class MainActivity : ComponentActivity() {
             WocabTheme {
                 val viewModel: WordViewModel = viewModel()
                 val word by viewModel.wordState.collectAsState()
-                val isPlaying by viewModel.isPlaying.collectAsState()
                 
-                WordDayScreen(
-                    word = word,
-                    isPlaying = isPlaying,
-                    onPlayAudio = {
-                        viewModel.setPlayingState(true)
-                        // Audio will be handled by the AudioPlayer in WordDayScreen
-                    },
-                    onPlayingStateChange = { playing ->
-                        viewModel.setPlayingState(playing)
-                    }
-                )
+                WordDayScreen(word = word)
             }
         }
     }

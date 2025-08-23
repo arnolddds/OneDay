@@ -10,50 +10,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
+
+
+import kotlinx.coroutines.launch
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.VerticalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.sobolev.wocab.data.WordModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun WordDayScreen(
-    word: WordModel,
-    isPlaying: Boolean,
-    onPlayAudio: () -> Unit,
-    onPlayingStateChange: (Boolean) -> Unit
+    word: WordModel
 ) {
     val pagerState = rememberPagerState()
-    val context = LocalContext.current
-    val audioPlayer = remember { AudioPlayer(context) }
     
-    DisposableEffect(Unit) {
-        onDispose {
-            audioPlayer.release()
-        }
-    }
-    
-    LaunchedEffect(isPlaying) {
-        if (isPlaying) {
-            audioPlayer.playAudio(word.audioFileName) {
-                onPlayingStateChange(false)
-            }
-        }
-    }
-    
-    HorizontalPager(
+    VerticalPager(
         count = 5,
         state = pagerState,
         modifier = Modifier.fillMaxSize()
     ) { page ->
         when (page) {
             0 -> WordTranslationPage(word)
-            1 -> ExamplePage(word.examples[0], 1)
-            2 -> ExamplePage(word.examples[1], 2)
-            3 -> PronunciationPage(word, isPlaying, onPlayAudio)
+            1 -> ExamplePage(word)
+            2 -> ExamplePage(word)
+            3 -> PronunciationPage(word)
             4 -> OtherMeaningsPage(word.otherMeanings, pagerState)
         }
     }
@@ -64,12 +51,13 @@ private fun WordTranslationPage(word: WordModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+            .padding(32.dp)
     ) {
+        // Main content centered
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.align(Alignment.Center)
         ) {
             Text(
                 text = word.word,
@@ -88,55 +76,110 @@ private fun WordTranslationPage(word: WordModel) {
                 color = MaterialTheme.colorScheme.onSurface
             )
         }
+        
+        // Simple text hint at the bottom
+        Text(
+            text = "Swipe to see more",
+            color = LocalContentColor.current.copy(alpha = 0.45f),
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 28.dp)
+        )
     }
 }
 
 @Composable
-private fun ExamplePage(example: String, pageNumber: Int) {
+private fun ExamplePage(word: WordModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+            .padding(32.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.align(Alignment.Center)
         ) {
+            // Russian translation first
             Text(
-                text = "Example $pageNumber",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.secondary
-            )
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            Text(
-                text = example,
+                text = buildAnnotatedString {
+                    val russianExample = word.examples[1]
+                    val parts = russianExample.split(word.translation)
+                    if (parts.size > 1) {
+                        append(parts[0])
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(word.translation)
+                        }
+                        append(parts[1])
+                    } else {
+                        append(russianExample)
+                    }
+                },
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
-                lineHeight = 28.sp
+                lineHeight = 28.sp,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            // English sentence second
+            Text(
+                text = buildAnnotatedString {
+                    val englishExample = word.examples[0]
+                    val parts = englishExample.split(word.word)
+                    if (parts.size > 1) {
+                        append(parts[0])
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(word.word)
+                        }
+                        append(parts[1])
+                    } else {
+                        append(englishExample)
+                    }
+                },
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                lineHeight = 28.sp,
+                color = MaterialTheme.colorScheme.primary
             )
         }
+        
+        // Swipe hint at the bottom
+        Text(
+            text = "Swipe to see more",
+            color = LocalContentColor.current.copy(alpha = 0.45f),
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 28.dp)
+        )
     }
 }
 
 @Composable
 private fun PronunciationPage(
-    word: WordModel,
-    isPlaying: Boolean,
-    onPlayAudio: () -> Unit
+    word: WordModel
 ) {
+    val context = LocalContext.current
+    val textToSpeechPlayer = remember { TextToSpeechPlayer(context) }
+    
+    DisposableEffect(Unit) {
+        onDispose {
+            textToSpeechPlayer.release()
+        }
+    }
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
+            .padding(32.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.align(Alignment.Center)
         ) {
             Text(
                 text = "Pronunciation",
@@ -158,7 +201,10 @@ private fun PronunciationPage(
             Spacer(modifier = Modifier.height(48.dp))
             
             FloatingActionButton(
-                onClick = onPlayAudio,
+                onClick = {
+                    // Speak the target word using TextToSpeech
+                    textToSpeechPlayer.speak(word.word)
+                },
                 modifier = Modifier.size(80.dp)
             ) {
                 Icon(
@@ -168,6 +214,16 @@ private fun PronunciationPage(
                 )
             }
         }
+        
+        // Swipe hint at the bottom
+        Text(
+            text = "Swipe to see more",
+            color = LocalContentColor.current.copy(alpha = 0.45f),
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 28.dp)
+        )
     }
 }
 
@@ -176,15 +232,7 @@ private fun OtherMeaningsPage(
     meanings: List<String>,
     pagerState: com.google.accompanist.pager.PagerState
 ) {
-    var shouldScrollToTop by remember { mutableStateOf(false) }
-    
-    // Handle the scroll animation in proper Compose context
-    LaunchedEffect(shouldScrollToTop) {
-        if (shouldScrollToTop) {
-            pagerState.animateScrollToPage(0)
-            shouldScrollToTop = false
-        }
-    }
+    val coroutineScope = rememberCoroutineScope()
     
     Box(
         modifier = Modifier
@@ -213,8 +261,18 @@ private fun OtherMeaningsPage(
             }
         }
         
+        // Go to top button with proper error handling
         Button(
-            onClick = { shouldScrollToTop = true },
+            onClick = {
+                coroutineScope.launch {
+                    try {
+                        pagerState.animateScrollToPage(0)
+                    } catch (e: Exception) {
+                        // Fallback to instant scroll if animation fails
+                        pagerState.scrollToPage(0)
+                    }
+                }
+            },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 32.dp)
@@ -222,4 +280,4 @@ private fun OtherMeaningsPage(
             Text("Go to the top")
         }
     }
-} 
+}

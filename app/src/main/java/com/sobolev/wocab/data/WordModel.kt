@@ -5,6 +5,5 @@ data class WordModel(
     val translation: String,
     val phonetic: String,
     val examples: List<String>,
-    val otherMeanings: List<String>,
-    val audioFileName: String
+    val otherMeanings: List<String>
 ) 
