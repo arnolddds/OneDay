@@ -4,7 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sobolev.wocab.presentation.WordDayScreen
+import com.sobolev.wocab.presentation.WordViewModel
 import com.sobolev.wocab.ui.theme.WocabTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +17,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WocabTheme {
-
+                val viewModel: WordViewModel = viewModel()
+                val word by viewModel.wordState.collectAsState()
+                val isPlaying by viewModel.isPlaying.collectAsState()
+                
+                WordDayScreen(
+                    word = word,
+                    isPlaying = isPlaying,
+                    onPlayAudio = {
+                        viewModel.setPlayingState(true)
+                        // Audio will be handled by the AudioPlayer in WordDayScreen
+                    },
+                    onPlayingStateChange = { playing ->
+                        viewModel.setPlayingState(playing)
+                    }
+                )
             }
         }
     }
