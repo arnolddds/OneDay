@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sobolev.wocab.presentation.WordDayScreen
-import com.sobolev.wocab.presentation.WordViewModel
+import com.sobolev.wocab.presentation.DailyInspirationScreen
+import com.sobolev.wocab.presentation.DailyInspirationViewModel
 import com.sobolev.wocab.ui.theme.WocabTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,10 +17,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WocabTheme {
-                val viewModel: WordViewModel = viewModel()
-                val word by viewModel.wordState.collectAsState()
+                val viewModel: DailyInspirationViewModel = viewModel()
+                val inspiration by viewModel.inspirationState.collectAsState()
                 
-                WordDayScreen(word = word)
+                DailyInspirationScreen(inspiration = inspiration)
             }
         }
     }

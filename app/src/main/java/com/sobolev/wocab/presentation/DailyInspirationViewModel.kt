@@ -2,15 +2,15 @@ package com.sobolev.wocab.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sobolev.wocab.data.WordModel
-import com.sobolev.wocab.data.WordRepository
+import com.sobolev.wocab.data.DailyInspirationModel
+import com.sobolev.wocab.data.DailyInspirationRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class WordViewModel : ViewModel() {
-    private val _wordState = MutableStateFlow(WordRepository.getWordOfTheDay())
-    val wordState: StateFlow<WordModel> = _wordState.asStateFlow()
+class DailyInspirationViewModel : ViewModel() {
+    private val _inspirationState = MutableStateFlow(DailyInspirationRepository.getDailyInspiration())
+    val inspirationState: StateFlow<DailyInspirationModel> = _inspirationState.asStateFlow()
     
     private val _isPlaying = MutableStateFlow(false)
     val isPlaying: StateFlow<Boolean> = _isPlaying.asStateFlow()

@@ -1,79 +1,83 @@
-# WordDay - Android Vocabulary App
+# Daily Inspiration
 
-A modern Android app built with Jetpack Compose that helps expand vocabulary by presenting one English word of the day with comprehensive information.
+Универсальное приложение для ежедневного вдохновения, которое каждый день показывает:
 
-## Features
+## 🎬 Фильм дня
+- Название фильма
+- Год выпуска
+- Краткое описание
 
-- **Word of the Day**: Displays an English word with Russian translation
-- **Example Sentences**: Two example sentences in both English and Russian
-- **Pronunciation**: Phonetic transcription with audio playback capability
-- **Additional Meanings**: List of alternative translations
-- **Swipe Navigation**: Vertical pager for easy navigation between pages
+## 📚 Книга дня
+- Название книги
+- Автор
+- Краткое описание
 
-## Architecture
+## 💬 Цитата дня
+- Текст цитаты
+- Автор
 
-The app follows a simple two-layer architecture:
+## 📝 Слово дня
+- Английское слово
+- Перевод на русский
+- Транскрипция
+- Примеры использования
+- Другие значения
 
-- **Data Layer**: Contains the word model and mock repository
-- **Presentation Layer**: UI components and ViewModel for state management
+## ✨ Особенности
 
-## Tech Stack
+- **Вертикальные свайпы** для навигации между элементами
+- **Подсказки** внизу каждого экрана
+- **Кнопка "Go to the top"** для быстрого возврата к началу
+- **Text-to-Speech** для произношения слов
+- **Современный Material Design 3** интерфейс
+- **Адаптивная тема** с поддержкой светлой и темной схемы
 
-- **Language**: Kotlin
-- **UI Framework**: Jetpack Compose
-- **Architecture**: MVVM with ViewModel
-- **State Management**: StateFlow
-- **Audio**: MediaPlayer for local MP3 playback
-- **Navigation**: Accompanist Pager for swipe navigation
+## 🚀 Технологии
 
-## Project Structure
+- **Kotlin** + **Jetpack Compose**
+- **MVVM архитектура**
+- **ViewModel** для управления состоянием
+- **Repository pattern** для данных
+- **Coroutines** для асинхронных операций
+
+## 📱 Требования
+
+- Android 7.0+ (API 24)
+- Kotlin 1.9+
+- Jetpack Compose
+
+## 🏗️ Сборка
+
+```bash
+./gradlew build
+```
+
+## 🧪 Тестирование
+
+```bash
+./gradlew test
+```
+
+## 📁 Структура проекта
 
 ```
 app/src/main/java/com/sobolev/wocab/
 ├── data/
-│   ├── WordModel.kt          # Data class for word information
-│   └── WordRepository.kt     # Mock repository with hardcoded data
+│   ├── DailyInspirationModel.kt
+│   └── DailyInspirationRepository.kt
 ├── presentation/
-│   ├── WordViewModel.kt      # ViewModel for state management
-│   ├── WordDayScreen.kt      # Main UI screen with pager
-│   └── AudioPlayer.kt        # Utility for audio playback
-└── MainActivity.kt           # Main activity entry point
+│   ├── DailyInspirationScreen.kt
+│   ├── DailyInspirationViewModel.kt
+│   └── TextToSpeechPlayer.kt
+└── MainActivity.kt
 ```
 
-## Setup Instructions
+## 🎯 Логика навигации
 
-1. Clone the repository
-2. Open in Android Studio
-3. Add an MP3 audio file to `app/src/main/res/raw/` named `serendipity.mp3`
-4. Build and run the app
+1. **Страница 0**: Фильм дня
+2. **Страница 1**: Книга дня  
+3. **Страница 2**: Цитата дня
+4. **Страница 3**: Слово дня
+5. **Страница 4**: Другие значения слова + кнопка возврата
 
-## Audio Requirements
-
-- Place MP3 files in the `res/raw/` directory
-- Filename should match the `audioFileName` property in `WordRepository`
-- Audio should contain the pronunciation of the English word
-
-## Current Word
-
-The app currently features the word "Serendipity" with:
-- English: Serendipity
-- Russian: Счастливая случайность
-- Phonetic: /ˌserənˈdɪpəti/
-- Examples and additional meanings
-
-## Future Enhancements
-
-- Network integration for dynamic word fetching
-- Local database for word history
-- Multiple language support
-- Word difficulty levels
-- Progress tracking
-- Offline mode
-
-## Dependencies
-
-- Jetpack Compose BOM
-- Material3 Design System
-- ViewModel Compose
-- Accompanist Pager
-- Core Android libraries 
+Каждый день приложение показывает новые элементы вдохновения, помогая пользователям расширять кругозор и находить мотивацию для новых достижений. 
