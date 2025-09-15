@@ -29,7 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sobolev.wocab.data.BookOfTheDay
 import com.sobolev.wocab.data.DailyInspirationModel
+import com.sobolev.wocab.data.MovieOfTheDay
+import com.sobolev.wocab.data.QuoteOfTheDay
+import com.sobolev.wocab.data.WordOfTheDay
 
 @Composable
 fun DailyInspirationScreen(
@@ -69,7 +73,7 @@ fun DailyInspirationScreen(
 }
 
 @Composable
-private fun MovieOfTheDayPage(movie: com.sobolev.wocab.data.MovieOfTheDay) {
+private fun MovieOfTheDayPage(movie: MovieOfTheDay) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -83,7 +87,8 @@ private fun MovieOfTheDayPage(movie: com.sobolev.wocab.data.MovieOfTheDay) {
             Text(
                 text = "🎬",
                 fontSize = 64.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary
             )
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -123,7 +128,7 @@ private fun MovieOfTheDayPage(movie: com.sobolev.wocab.data.MovieOfTheDay) {
 }
 
 @Composable
-private fun BookOfTheDayPage(book: com.sobolev.wocab.data.BookOfTheDay) {
+private fun BookOfTheDayPage(book: BookOfTheDay) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -137,7 +142,9 @@ private fun BookOfTheDayPage(book: com.sobolev.wocab.data.BookOfTheDay) {
             Text(
                 text = "📚",
                 fontSize = 64.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary
+
             )
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -178,7 +185,7 @@ private fun BookOfTheDayPage(book: com.sobolev.wocab.data.BookOfTheDay) {
 }
 
 @Composable
-private fun QuoteOfTheDayPage(quote: com.sobolev.wocab.data.QuoteOfTheDay) {
+private fun QuoteOfTheDayPage(quote: QuoteOfTheDay) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -192,7 +199,8 @@ private fun QuoteOfTheDayPage(quote: com.sobolev.wocab.data.QuoteOfTheDay) {
             Text(
                 text = "💬",
                 fontSize = 64.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary
             )
             
             Spacer(modifier = Modifier.height(24.dp))
@@ -223,7 +231,7 @@ private fun QuoteOfTheDayPage(quote: com.sobolev.wocab.data.QuoteOfTheDay) {
 }
 
 @Composable
-private fun WordOfTheDayPage(word: com.sobolev.wocab.data.WordOfTheDay) {
+private fun WordOfTheDayPage(word: WordOfTheDay) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -237,7 +245,9 @@ private fun WordOfTheDayPage(word: com.sobolev.wocab.data.WordOfTheDay) {
             Text(
                 text = "📝",
                 fontSize = 64.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary
+
             )
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -291,15 +301,15 @@ private fun OtherMeaningsPage(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.align(Alignment.Center)
         ) {
-            meanings.forEach { meaning ->
+
                 Text(
-                    text = meaning,
+                    text = "Something'll be there ",
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
-            }
+
         }
         
         Button(

@@ -9,14 +9,14 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sobolev.wocab.presentation.DailyInspirationScreen
 import com.sobolev.wocab.presentation.DailyInspirationViewModel
-import com.sobolev.wocab.ui.theme.WocabTheme
+import com.sobolev.wocab.ui.theme.OneDayTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            WocabTheme {
+            OneDayTheme {
                 val viewModel: DailyInspirationViewModel = viewModel()
                 val inspiration by viewModel.inspirationState.collectAsState()
                 
