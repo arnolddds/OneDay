@@ -33,6 +33,10 @@ class DailyViewModel @Inject constructor(
         }
     }
 
+    fun retry() {
+        refresh()
+    }
+
     fun setPlayingState(playing: Boolean) {
         _isPlaying.value = playing
     }
