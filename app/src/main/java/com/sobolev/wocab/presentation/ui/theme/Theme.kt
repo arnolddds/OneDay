@@ -1,4 +1,4 @@
-package com.sobolev.wocab.ui.theme
+package com.sobolev.wocab.presentation.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

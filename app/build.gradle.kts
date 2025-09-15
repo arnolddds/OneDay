@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -39,6 +41,9 @@ android {
     }
 }
 
+apply(plugin = "com.google.dagger.hilt.android")
+apply(plugin = "org.jetbrains.kotlin.kapt")
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -57,6 +62,12 @@ dependencies {
 
     // Pager dependency
     implementation(libs.accompanist.pager)
+
+    //hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    //ksp
+    ksp(libs.hilt.android.compiler)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -66,3 +77,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+

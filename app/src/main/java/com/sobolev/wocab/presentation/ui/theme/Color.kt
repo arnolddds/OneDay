@@ -1,4 +1,4 @@
-package com.sobolev.wocab.ui.theme
+package com.sobolev.wocab.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
