@@ -15,7 +15,7 @@ import com.sobolev.wocab.presentation.ui.components.BottomHint
 import com.sobolev.wocab.presentation.tts.rememberTtsController
 import java.util.Locale
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.filled.Add
 
 @Composable
 fun WordPage(word: Word) {
@@ -60,7 +60,7 @@ fun WordPage(word: Word) {
 
             IconButton(onClick = { tts.speak(word.word) }) {
                 Icon(
-                    imageVector = Icons.Filled.VolumeUp,
+                    imageVector = Icons.Filled.Add, //заменить иконку
                     contentDescription = "Speak",
                     tint = MaterialTheme.colorScheme.onBackground
                 )

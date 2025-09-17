@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @HiltViewModel
 class DailyViewModel @Inject constructor(
@@ -21,20 +22,20 @@ class DailyViewModel @Inject constructor(
     val isPlaying: StateFlow<Boolean> = _isPlaying.asStateFlow()
 
     init {
-        refresh()
+        refresh(null)
     }
 
-    fun refresh() {
+    fun refresh(date: LocalDate? = null) {
         viewModelScope.launch {
             _uiState.value = DailyUiState.Loading
-            runCatching { getDailyContent() }
+            runCatching { getDailyContent(date) }
                 .onSuccess { _uiState.value = DailyUiState.Ready(it) }
                 .onFailure { _uiState.value = DailyUiState.Error(it.message ?: "Unknown error") }
         }
     }
 
     fun retry() {
-        refresh()
+        refresh(null)
     }
 
     fun setPlayingState(playing: Boolean) {

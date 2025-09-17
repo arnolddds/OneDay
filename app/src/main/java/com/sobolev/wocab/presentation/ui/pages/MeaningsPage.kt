@@ -26,11 +26,10 @@ fun MeaningsPage(
             modifier = Modifier.align(Alignment.Center)
         ) {
             Text(
-                text = "smth",
+                text = "Листайте вверх, чтобы вернуться к началу",
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                modifier = Modifier.padding(vertical = 6.dp)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
             )
         }
 
@@ -46,7 +45,7 @@ fun MeaningsPage(
             )
         ) {
             Text(
-                text = "Go to the top",
+                text = "Go to top",
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                 style = MaterialTheme.typography.labelLarge
             )

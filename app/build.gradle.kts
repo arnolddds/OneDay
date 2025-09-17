@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -41,8 +42,7 @@ android {
     }
 }
 
-apply(plugin = "com.google.dagger.hilt.android")
-apply(plugin = "org.jetbrains.kotlin.kapt")
+
 
 dependencies {
 
@@ -54,21 +54,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    
-    // ViewModel and Compose dependencies
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation("androidx.compose.material:material-icons-extended:1.7.0")
-
-
-    // Pager dependency
-    implementation(libs.accompanist.pager)
-
-    //hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.navigation.compose)
-    //ksp
-    ksp(libs.hilt.android.compiler)
-    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -76,5 +61,30 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    //jetpack nav
+    implementation(libs.androidx.navigation.compose)
+    //hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    //ksp
+    ksp(libs.hilt.android.compiler)
+    //serialization
+    implementation(libs.kotlinx.serialization.json)
+    //coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    //room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.kotlinx.serialization)
+    //workmanager
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+    //data store
+    implementation(libs.androidx.datastore.preferences)
 }
 

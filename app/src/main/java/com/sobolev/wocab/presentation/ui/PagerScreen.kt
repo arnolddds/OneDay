@@ -16,6 +16,12 @@ import com.sobolev.wocab.presentation.ui.pages.MeaningsPage
 import com.sobolev.wocab.presentation.ui.pages.MoviePage
 import com.sobolev.wocab.presentation.ui.pages.QuotePage
 import com.sobolev.wocab.presentation.ui.pages.WordPage
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.padding
 
 @Composable
 fun PagerScreen(
@@ -44,6 +50,16 @@ fun PagerScreen(
             4 -> MeaningsPage(
                 onGoTop = { shouldScrollToTop = true }
             )
+        }
+        if (page == 0) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = content.date.toString(),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.align(Alignment.TopEnd).padding(12.dp),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                )
+            }
         }
     }
 }

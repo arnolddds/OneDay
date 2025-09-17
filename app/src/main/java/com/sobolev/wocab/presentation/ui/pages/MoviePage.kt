@@ -42,7 +42,7 @@ fun MoviePage(movie: Movie) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "(${movie.year})",
+                text = "${movie.year} • ★ ${"%.1f".format(movie.rating)}",
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)

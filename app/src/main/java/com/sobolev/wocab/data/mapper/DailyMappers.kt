@@ -1,19 +1,27 @@
 package com.sobolev.wocab.data.mapper
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.sobolev.wocab.data.dto.*
 import com.sobolev.wocab.domain.model.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun DailyDto.toDomain(): DailyContent = DailyContent(
     movie = movie.toDomain(),
     book = book.toDomain(),
     quote = quote.toDomain(),
-    word = word.toDomain()
+    word = word.toDomain(),
+    date = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)
 )
 
 private fun MovieDto.toDomain(): Movie = Movie(
     title = title,
     description = description,
-    year = year
+    rating = rating,
+    year = year,
+    imageUrl = imageUrl
 )
 
 private fun BookDto.toDomain(): Book = Book(
@@ -28,10 +36,9 @@ private fun QuoteDto.toDomain(): Quote = Quote(
 )
 
 private fun WordDto.toDomain(): Word = Word(
-    word = word,
+    word = english,
     translation = translation,
-    phonetic = phonetic,
-    otherMeanings = otherMeanings
+    phonetic = transcription
 )
 
 
